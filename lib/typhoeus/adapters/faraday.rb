@@ -94,6 +94,8 @@ module Faraday # :nodoc:
         configure_socket  req, env
 
         req.on_complete do |resp|
+          env[:typhoeus_total_time] = resp.total_time
+          
           if resp.timed_out?
             env[:typhoeus_timed_out] = true
             unless parallel?(env)
